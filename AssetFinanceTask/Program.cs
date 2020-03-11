@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Linq;
 
 namespace AssetFinanceTask
 {
@@ -7,15 +6,17 @@ namespace AssetFinanceTask
     {
         static void Main(string[] args)
         {
-            var arr = Consts.Input.Split(new char[0], StringSplitOptions.RemoveEmptyEntries);
-            var input = arr.Select(int.Parse).ToArray();
+            var service = new PyramidTreeService(new StaticPyramidArrayProvider());
 
-            PyramidTree Tree = new PyramidTree();
+            PyramidTree tree = service.CreateTree();
+            //tree.Print();
+            //Console.WriteLine();
 
-            for (int i = 0; i < input.Length; i++)
-            {
-                Tree.AddNode(input[i]);
-            }            
+            var paths = service.FindEvenOddPaths(tree);
+            service.PrintAllPaths(paths);
+            service.PrintLongestPath(paths);
+
+            Console.ReadLine();
         }
     }
 }

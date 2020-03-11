@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Text;
 
 namespace AssetFinanceTask
 {
@@ -75,6 +74,70 @@ namespace AssetFinanceTask
                     node.Right = CreateNode(value);
                     Queue.Dequeue();
                 }
+            }
+        }
+
+        public int GetDepth()
+        {
+            return GetDepth(Root);
+        }
+
+        public void Print()
+        {
+            Print(Root);
+        }
+
+        private void Print(Node root)
+        {
+            if (root == null)
+                return;
+
+            Queue<Node> q = new Queue<Node>();
+
+            q.Enqueue(root);
+
+            while (true)
+            {
+                int nodeCount = q.Count;
+                if (nodeCount == 0)
+                {
+                    break;
+                }
+
+                while (nodeCount > 0)
+                {
+                    Node node = q.Dequeue();
+                    Console.Write(node.Value + " ");
+
+                    if (node.Left != null)
+                    {
+                        q.Enqueue(node.Left);
+                    }
+                    if (node.Right != null)
+                    {
+                        q.Enqueue(node.Right);
+                    }
+                    nodeCount--;
+                }
+                Console.WriteLine();
+            }
+        }
+
+        private int GetDepth(Node node)
+        {
+            if (node == null)
+                return 0;
+            else
+            {
+                int lDepth = GetDepth(node.Left);
+
+                // Note: since this tree is always full there is not really a need to traverse the right subtree
+                int rDepth = GetDepth(node.Right);
+
+                if (lDepth > rDepth)
+                    return (lDepth + 1);
+                else
+                    return (rDepth + 1);
             }
         }
 

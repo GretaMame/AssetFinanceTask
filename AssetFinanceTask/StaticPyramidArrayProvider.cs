@@ -1,12 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
+using System.Linq;
 
 namespace AssetFinanceTask
 {
-    public static class Consts
+    public class StaticPyramidArrayProvider : IPyramidArrayProvider
     {
-        public static string Input = @"215
+        private static string Input = @"215
                                        192 124
                                        117 269 442
                                        218 836 347 235
@@ -21,5 +20,11 @@ namespace AssetFinanceTask
                                        131 171 522 137 217 224 291 413 528 520 227 229 928
                                        223 626 034 683 839 052 627 310 713 999 629 817 410 121
                                        924 622 911 233 325 139 721 218 253 223 107 233 230 124 233";
+
+        public int[] GetPyramidArray()
+        {
+            var arr = Input.Split(new char[0], StringSplitOptions.RemoveEmptyEntries);
+            return arr.Select(int.Parse).ToArray();
+        }
     }
 }
